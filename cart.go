@@ -18,7 +18,12 @@ func Subtotal(items []Item) int {
 }
 
 // Total applies a percentage discount to the subtotal, rounding down to the cent.
+// Discount codes never take more than half off.
 func Total(items []Item, discountPct int) int {
 	sub := Subtotal(items)
-	return sub * (100 - discountPct) / 100
+	total := sub * (100 - discountPct) / 100
+	if discountPct > 50 {
+		discountPct = 50
+	}
+	return total
 }
